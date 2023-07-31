@@ -1,0 +1,15 @@
+C:\My Storage\My Projects\- Main Projects\Layernt\LayerntConsole\bin\x64\Release\net7.0\LayerntConsole.exe
+C:\My Storage\My Projects\- Main Projects\Layernt\LayerntConsole\bin\x64\Release\net7.0\LayerntConsole.deps.json
+C:\My Storage\My Projects\- Main Projects\Layernt\LayerntConsole\bin\x64\Release\net7.0\LayerntConsole.runtimeconfig.json
+C:\My Storage\My Projects\- Main Projects\Layernt\LayerntConsole\bin\x64\Release\net7.0\LayerntConsole.dll
+C:\My Storage\My Projects\- Main Projects\Layernt\LayerntConsole\bin\x64\Release\net7.0\LayerntConsole.pdb
+C:\My Storage\My Projects\- Main Projects\Layernt\LayerntConsole\obj\x64\Release\net7.0\LayerntConsole.csproj.AssemblyReference.cache
+C:\My Storage\My Projects\- Main Projects\Layernt\LayerntConsole\obj\x64\Release\net7.0\LayerntConsole.GeneratedMSBuildEditorConfig.editorconfig
+C:\My Storage\My Projects\- Main Projects\Layernt\LayerntConsole\obj\x64\Release\net7.0\LayerntConsole.AssemblyInfoInputs.cache
+C:\My Storage\My Projects\- Main Projects\Layernt\LayerntConsole\obj\x64\Release\net7.0\LayerntConsole.AssemblyInfo.cs
+C:\My Storage\My Projects\- Main Projects\Layernt\LayerntConsole\obj\x64\Release\net7.0\LayerntConsole.csproj.CoreCompileInputs.cache
+C:\My Storage\My Projects\- Main Projects\Layernt\LayerntConsole\obj\x64\Release\net7.0\LayerntConsole.dll
+C:\My Storage\My Projects\- Main Projects\Layernt\LayerntConsole\obj\x64\Release\net7.0\refint\LayerntConsole.dll
+C:\My Storage\My Projects\- Main Projects\Layernt\LayerntConsole\obj\x64\Release\net7.0\LayerntConsole.pdb
+C:\My Storage\My Projects\- Main Projects\Layernt\LayerntConsole\obj\x64\Release\net7.0\LayerntConsole.genruntimeconfig.cache
+C:\My Storage\My Projects\- Main Projects\Layernt\LayerntConsole\obj\x64\Release\net7.0\ref\LayerntConsole.dll

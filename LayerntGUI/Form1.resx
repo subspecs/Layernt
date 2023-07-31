@@ -1,0 +1,112 @@
+﻿<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="label10.ToolTip" xml:space="preserve">
+    <value>If using password enccryption,
+will use settings that allows image decryption
+on crappy platforms that have crappy AES GCM
+support.
+If having issues decrypting images on other platforms,
+try checking this.</value>
+  </data>
+  <data name="label5.ToolTip" xml:space="preserve">
+    <value>Encrypt the image with a password?
+
+Encrypts an image and its secret data
+with an password. 
+The image will still appear as an normal image, and the
+only things that can tell if an image has data and/or is encrypted afterwards 
+are god, jesus and the holy spirit. Seriously, the data is appended directly
+onto the pixels themselves, which as you know is expressed as image noise.
+
+So apart from you knowing it's encrypted, no one or any software can
+ever tell if the image JUST has noise, OR it actually has encrypted data.
+There is no literal mathematical difference between the two.</value>
+  </data>
+  <data name="label3.ToolTip" xml:space="preserve">
+    <value>The more bits you use, the more free space you get.
+Image size might increase, as well as the processing times.
+
+NOTE: Anything 48 bits and above will only allow to save PNGs.
+This is a limitation of ImageSharp library in use.
+
+Also note that some image hosts might not allow 48bit+
+image upload or they'll re-encode the image into 
+lower bits, corrupting your secret data.
+
+</value>
+  </data>
+  <data name="label9.ToolTip" xml:space="preserve">
+    <value>Encrypt the image with a password?
+
+Encrypts an image and its secret data
+with an password. 
+The image will still appear as an normal image, and the
+only things that can tell if an image has data and/or is encrypted afterwards 
+are god, jesus and the holy spirit. Seriously, the data is appended directly
+onto the pixels themselves, which as you know is expressed as image noise.
+
+So apart from you knowing it's encrypted, no one or any software can
+ever tell if the image JUST has noise, OR it actually has encrypted data.
+There is no literal mathematical difference between the two.</value>
+  </data>
+</root>
