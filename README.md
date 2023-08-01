@@ -20,4 +20,4 @@ Head on over to [releases](https://github.com/subspecs/Layernt/releases) and dow
 If you have issues, complain in the [issue tracker](https://github.com/subspecs/Layernt/issues)!<br>
 ![](https://i.imgur.com/VCyKEoa.png)<br><br>
 If it complains about the ".NET 7 is not installed", then head over to [microsoft](https://dotnet.microsoft.com/en-us/download/dotnet/7.0) and download it. (Might need a PC restart, probably not tho.)<br>
-![](https://i.imgur.com/ZrUpwlJ.png)
+![](https://i.imgur.com/K8KiMLk.png)
