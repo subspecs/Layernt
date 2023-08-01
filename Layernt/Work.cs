@@ -430,7 +430,7 @@ namespace Layernt
 
                 switch (System.IO.Path.GetExtension(OutputImage).ToLower())
                 {
-                    case ".png": { Image.Save(OutputImage, new PngEncoder() { CompressionLevel = PngCompressionLevel.BestCompression, BitDepth = PngBitDepth.Bit16 }); } break;
+                    case ".png": { Image.Save(OutputImage, new PngEncoder() { CompressionLevel = PngCompressionLevel.BestCompression, BitDepth = PngBitDepth.Bit16, TransparentColorMode = PngTransparentColorMode.Clear, ColorType = PngColorType.Rgb }); } break;
                     //case ".tiff": { Image.Save(OutputImage, new TiffEncoder() { CompressionLevel = SixLabors.ImageSharp.Compression.Zlib.DeflateCompressionLevel.BestCompression, BitsPerPixel = TiffBitsPerPixel.Bit24 }); } break;
                     //case ".tga": { Image.Save(OutputImage, new TgaEncoder() { Compression = TgaCompression.RunLength, BitsPerPixel = TgaBitsPerPixel.Pixel32 }); } break; //Only <= 32bit images.
                     //case ".webp": { Image.Save(OutputImage, new WebpEncoder() { FileFormat = WebpFileFormatType.Lossless, Method = WebpEncodingMethod.BestQuality, Quality = 100, TransparentColorMode  = WebpTransparentColorMode.Preserve, UseAlphaCompression  = true }); } break;  //Only <= 32bit images.
