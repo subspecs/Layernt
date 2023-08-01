@@ -60,6 +60,27 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="label12.ToolTip" xml:space="preserve">
+    <value>The more bits you use, the more free space you get.
+Image size might increase, as well as the processing times.
+
+NOTE: Anything 48 bits and above will only allow to save PNGs.
+This is a limitation of ImageSharp library in use.
+
+Also note that some image hosts might not allow 48bit+
+image upload or they'll re-encode the image into 
+lower bits, corrupting your secret data.
+
+</value>
+  </data>
+  <data name="label11.ToolTip" xml:space="preserve">
+    <value>The less bits you use, the higher the output image quality will be.
+
+NOTE: Anything 9 bits and above will only allow to save PNGs.
+And will force the 'Bits Per Pixel' to be set to 48bit+.
+This is a limitation of ImageSharp library in use.
+</value>
+  </data>
   <data name="label10.ToolTip" xml:space="preserve">
     <value>If using password enccryption,
 will use settings that allows image decryption

@@ -32,6 +32,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            checkBox4 = new CheckBox();
+            label12 = new Label();
+            comboBox2 = new ComboBox();
+            label11 = new Label();
             label10 = new Label();
             checkBox3 = new CheckBox();
             label7 = new Label();
@@ -79,11 +83,15 @@
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(601, 313);
+            tabControl1.Size = new Size(601, 310);
             tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(checkBox4);
+            tabPage1.Controls.Add(label12);
+            tabPage1.Controls.Add(comboBox2);
+            tabPage1.Controls.Add(label11);
             tabPage1.Controls.Add(label10);
             tabPage1.Controls.Add(checkBox3);
             tabPage1.Controls.Add(label7);
@@ -107,15 +115,60 @@
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(593, 285);
+            tabPage1.Size = new Size(593, 282);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Save";
             tabPage1.UseVisualStyleBackColor = true;
             // 
+            // checkBox4
+            // 
+            checkBox4.AutoSize = true;
+            checkBox4.Checked = true;
+            checkBox4.CheckState = CheckState.Checked;
+            checkBox4.Location = new Point(226, 130);
+            checkBox4.Name = "checkBox4";
+            checkBox4.RightToLeft = RightToLeft.Yes;
+            checkBox4.Size = new Size(15, 14);
+            checkBox4.TabIndex = 25;
+            checkBox4.UseVisualStyleBackColor = true;
+            checkBox4.CheckedChanged += checkBox4_CheckedChanged;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(184, 129);
+            label12.Name = "label12";
+            label12.Size = new Size(36, 15);
+            label12.TabIndex = 24;
+            label12.Text = "Auto:";
+            toolTip1.SetToolTip(label12, resources.GetString("label12.ToolTip"));
+            // 
+            // comboBox2
+            // 
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox2.Enabled = false;
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Items.AddRange(new object[] { "1bit", "2bit", "3bit", "4bit", "5bit", "6bit", "7bit", "8bit", "9bit", "10bit", "11bit", "12bit", "13bit", "14bit", "15bit", "16bit" });
+            comboBox2.Location = new Point(107, 126);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(71, 23);
+            comboBox2.TabIndex = 23;
+            comboBox2.SelectedIndexChanged += comboBox2_SelectedIndexChanged;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(5, 130);
+            label11.Name = "label11";
+            label11.Size = new Size(96, 15);
+            label11.TabIndex = 22;
+            label11.Text = "Bits Per Channel:";
+            toolTip1.SetToolTip(label11, resources.GetString("label11.ToolTip"));
+            // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(365, 249);
+            label10.Location = new Point(366, 130);
             label10.Name = "label10";
             label10.Size = new Size(163, 15);
             label10.TabIndex = 21;
@@ -125,7 +178,7 @@
             // checkBox3
             // 
             checkBox3.AutoSize = true;
-            checkBox3.Location = new Point(543, 250);
+            checkBox3.Location = new Point(535, 131);
             checkBox3.Name = "checkBox3";
             checkBox3.RightToLeft = RightToLeft.Yes;
             checkBox3.Size = new Size(15, 14);
@@ -136,22 +189,23 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(13, 221);
+            label7.Location = new Point(16, 228);
             label7.Name = "label7";
-            label7.Size = new Size(219, 60);
+            label7.Size = new Size(151, 15);
             label7.TabIndex = 19;
-            label7.Text = "* Hover on titles to see tips.\r\n\r\n* The more free space left in an image,\r\nthe better the image quality. (Less grain)\r\n";
+            label7.Text = "* Hover on titles to see tips.";
+            label7.Click += label7_Click;
             // 
             // progressBar1
             // 
-            progressBar1.Location = new Point(16, 160);
+            progressBar1.Location = new Point(16, 185);
             progressBar1.Name = "progressBar1";
             progressBar1.Size = new Size(569, 40);
             progressBar1.TabIndex = 17;
             // 
             // button4
             // 
-            button4.Location = new Point(238, 221);
+            button4.Location = new Point(240, 231);
             button4.Name = "button4";
             button4.Size = new Size(97, 43);
             button4.TabIndex = 16;
@@ -179,7 +233,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(13, 129);
+            label5.Location = new Point(10, 159);
             label5.Name = "label5";
             label5.Size = new Size(67, 15);
             label5.TabIndex = 14;
@@ -189,7 +243,7 @@
             // checkBox1
             // 
             checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(86, 130);
+            checkBox1.Location = new Point(83, 160);
             checkBox1.Name = "checkBox1";
             checkBox1.RightToLeft = RightToLeft.Yes;
             checkBox1.Size = new Size(15, 14);
@@ -200,7 +254,7 @@
             // textBox4
             // 
             textBox4.Enabled = false;
-            textBox4.Location = new Point(107, 126);
+            textBox4.Location = new Point(104, 156);
             textBox4.Name = "textBox4";
             textBox4.PasswordChar = '*';
             textBox4.Size = new Size(478, 23);
@@ -449,7 +503,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(601, 313);
+            ClientSize = new Size(601, 310);
             Controls.Add(tabControl1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -502,5 +556,9 @@
         private Button button7;
         private Label label10;
         private CheckBox checkBox3;
+        private CheckBox checkBox4;
+        private Label label12;
+        private ComboBox comboBox2;
+        private Label label11;
     }
 }

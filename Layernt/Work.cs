@@ -106,8 +106,10 @@ namespace Layernt
                 System.Buffer.BlockCopy(System.BitConverter.GetBytes(Count), 0, DataToEncrypt, 4 + DataName.Length, 4); //Count.
                 System.Buffer.BlockCopy(Buffer, Offset, DataToEncrypt, 4 + DataName.Length + 4, Count); //Actual Data.
 
-                System.Array.Resize(ref EncryptionPassword, 32); //Make sure password fits.
-                System.Security.Cryptography.AesGcm AES = new System.Security.Cryptography.AesGcm(EncryptionPassword);
+                var Sha = System.Security.Cryptography.SHA256.Create(); byte[] PWHash = Sha.ComputeHash(EncryptionPassword);
+                System.Security.Cryptography.AesGcm AES = new System.Security.Cryptography.AesGcm(PWHash);
+                Sha.Dispose(); var HSHA = new System.Security.Cryptography.HMACSHA256(PWHash);
+
                 byte[] Nonce = System.Security.Cryptography.RandomNumberGenerator.GetBytes(System.Security.Cryptography.AesGcm.NonceByteSizes.MaxSize); //RNG.
                 byte[] Tag = new byte[UsePlatformSafeEncryption ? 12 : System.Security.Cryptography.AesGcm.TagByteSizes.MaxSize]; //Gets and Stores Tag.
                 byte[] WriteBuffer = new byte[4 + Nonce.Length + 4 + Tag.Length]; //Buffer to store all.
@@ -119,11 +121,15 @@ namespace Layernt
 
                 byte[] EncryptedData = new byte[DataToEncrypt.Length]; int EncBitOffset = 0; // 1:1.
                 System.Buffer.BlockCopy(System.BitConverter.GetBytes(Nonce.Length), 0, WriteBuffer, EncBitOffset, 4); EncBitOffset += 4; //Write Nonce len.
-                System.Buffer.BlockCopy(Nonce, 0, WriteBuffer, EncBitOffset, Nonce.Length); EncBitOffset += Nonce.Length; //Write Nonce.
                 System.Buffer.BlockCopy(System.BitConverter.GetBytes(Tag.Length), 0, WriteBuffer, EncBitOffset, 4); EncBitOffset += 4; //Write Tag Len.
+                System.Buffer.BlockCopy(Nonce, 0, WriteBuffer, EncBitOffset, Nonce.Length); EncBitOffset += Nonce.Length; //Write Nonce.
                 AES.Encrypt(Nonce, DataToEncrypt, EncryptedData, Tag); //Encrypt Data.
                 System.Buffer.BlockCopy(Tag, 0, WriteBuffer, EncBitOffset, Tag.Length); EncBitOffset += Tag.Length;
                 System.Buffer.BlockCopy(EncryptedData, 0, WriteBuffer, EncBitOffset, EncryptedData.Length); EncBitOffset += EncryptedData.Length;
+
+                var MHash = HSHA.ComputeHash(WriteBuffer, 8, BufferByteSize - 8);
+                int m = 0; while (m < 8) { WriteBuffer[m] += MHash[m]; m++; }
+                HSHA.Dispose();
 
                 int TotalPixelCount = Image.Width * Image.Height, z, n = 1; //1 for the pixel we used for bit size/count.
                 long BitOffset = 0, TotalBitsToWrite = BufferByteSize * 8;
@@ -183,18 +189,25 @@ namespace Layernt
                 byte[] EncryptedBuffer = new byte[BufferByteSize];
                 ReadInPixels(Image.Width * Image.Height, EncryptedBuffer, RawPixelArray, BytesPerBang, SaveBits);
 
+                var Sha = System.Security.Cryptography.SHA256.Create(); byte[] PWHash = Sha.ComputeHash(EncryptionPassword);
+                System.Security.Cryptography.AesGcm AES = new System.Security.Cryptography.AesGcm(PWHash);
+                Sha.Dispose(); var HSHA = new System.Security.Cryptography.HMACSHA256(PWHash);
+
+                var MHash = HSHA.ComputeHash(EncryptedBuffer, 8, BufferByteSize - 8);
+                int m = 0; while (m < 8) { EncryptedBuffer[m] -= MHash[m]; m++; }
+                HSHA.Dispose();
+
                 int ByteOffset = 0;
                 int NonceSize = System.BitConverter.ToInt32(EncryptedBuffer, ByteOffset); byte[] Nonce = new byte[NonceSize]; ByteOffset += 4;
-                System.Buffer.BlockCopy(EncryptedBuffer, ByteOffset, Nonce, 0, NonceSize); ByteOffset += NonceSize;
+                int TagSize = System.BitConverter.ToInt32(EncryptedBuffer, ByteOffset); byte[] Tag = new byte[TagSize]; ByteOffset += 4;
 
-                int TagSize = System.BitConverter.ToInt32(EncryptedBuffer, 4 + NonceSize); byte[] Tag = new byte[TagSize]; ByteOffset += 4;
-                System.Buffer.BlockCopy(EncryptedBuffer, 4 + NonceSize + 4, Tag, 0, TagSize); ByteOffset += TagSize;
+                System.Buffer.BlockCopy(EncryptedBuffer, ByteOffset, Nonce, 0, NonceSize); ByteOffset += NonceSize;
+                System.Buffer.BlockCopy(EncryptedBuffer, ByteOffset, Tag, 0, TagSize); ByteOffset += TagSize;
 
                 byte[] EncryptedData = new byte[EncryptedBuffer.Length - ByteOffset];
                 System.Buffer.BlockCopy(EncryptedBuffer, ByteOffset, EncryptedData, 0, EncryptedData.Length);
 
-                System.Array.Resize(ref EncryptionPassword, 32); Output = new byte[EncryptedData.Length];
-                System.Security.Cryptography.AesGcm AES = new System.Security.Cryptography.AesGcm(EncryptionPassword);
+                Output = new byte[EncryptedData.Length];
 
                 AES.Decrypt(Nonce, EncryptedData, Tag, Output);
 
@@ -235,8 +248,10 @@ namespace Layernt
                 System.Buffer.BlockCopy(System.BitConverter.GetBytes(Count), 0, DataToEncrypt, 4 + DataName.Length, 4); //Count.
                 System.Buffer.BlockCopy(Buffer, Offset, DataToEncrypt, 4 + DataName.Length + 4, Count); //Actual Data.
 
-                System.Array.Resize(ref EncryptionPassword, 32); //Make sure password fits.
-                System.Security.Cryptography.AesGcm AES = new System.Security.Cryptography.AesGcm(EncryptionPassword);
+                var Sha = System.Security.Cryptography.SHA256.Create(); byte[] PWHash = Sha.ComputeHash(EncryptionPassword);
+                System.Security.Cryptography.AesGcm AES = new System.Security.Cryptography.AesGcm(PWHash);
+                Sha.Dispose(); var HSHA = new System.Security.Cryptography.HMACSHA256(PWHash);
+
                 byte[] Nonce = System.Security.Cryptography.RandomNumberGenerator.GetBytes(System.Security.Cryptography.AesGcm.NonceByteSizes.MaxSize); //RNG.
                 byte[] Tag = new byte[UsePlatformSafeEncryption ? 12 : System.Security.Cryptography.AesGcm.TagByteSizes.MaxSize]; //Gets and Stores Tag.
                 byte[] WriteBuffer = new byte[4 + Nonce.Length + 4 + Tag.Length]; //Buffer to store all.
@@ -248,11 +263,15 @@ namespace Layernt
 
                 byte[] EncryptedData = new byte[DataToEncrypt.Length]; int EncBitOffset = 0; // 1:1.
                 System.Buffer.BlockCopy(System.BitConverter.GetBytes(Nonce.Length), 0, WriteBuffer, EncBitOffset, 4); EncBitOffset += 4; //Write Nonce len.
-                System.Buffer.BlockCopy(Nonce, 0, WriteBuffer, EncBitOffset, Nonce.Length); EncBitOffset += Nonce.Length; //Write Nonce.
                 System.Buffer.BlockCopy(System.BitConverter.GetBytes(Tag.Length), 0, WriteBuffer, EncBitOffset, 4); EncBitOffset += 4; //Write Tag Len.
+                System.Buffer.BlockCopy(Nonce, 0, WriteBuffer, EncBitOffset, Nonce.Length); EncBitOffset += Nonce.Length; //Write Nonce.
                 AES.Encrypt(Nonce, DataToEncrypt, EncryptedData, Tag); //Encrypt Data.
                 System.Buffer.BlockCopy(Tag, 0, WriteBuffer, EncBitOffset, Tag.Length); EncBitOffset += Tag.Length;
                 System.Buffer.BlockCopy(EncryptedData, 0, WriteBuffer, EncBitOffset, EncryptedData.Length); EncBitOffset += EncryptedData.Length;
+
+                var MHash = HSHA.ComputeHash(WriteBuffer, 8, BufferByteSize - 8);
+                int m = 0; while (m < 8) { WriteBuffer[m] += MHash[m]; m++; }
+                HSHA.Dispose();
 
                 int TotalPixelCount = Image.Width * Image.Height, z, n = 1; //1 for the pixel we used for bit size/count.
                 long BitOffset = 0, TotalBitsToWrite = BufferByteSize * 8;
@@ -314,18 +333,25 @@ namespace Layernt
                 byte[] EncryptedBuffer = new byte[BufferByteSize];
                 ReadInPixels(Image.Width * Image.Height, EncryptedBuffer, RawPixelArray, BytesPerBang, SaveBits);
 
+                var Sha = System.Security.Cryptography.SHA256.Create(); byte[] PWHash = Sha.ComputeHash(EncryptionPassword);
+                System.Security.Cryptography.AesGcm AES = new System.Security.Cryptography.AesGcm(PWHash);
+                Sha.Dispose(); var HSHA = new System.Security.Cryptography.HMACSHA256(PWHash);
+
+                var MHash = HSHA.ComputeHash(EncryptedBuffer, 8, BufferByteSize - 8);
+                int m = 0; while (m < 8) { EncryptedBuffer[m] -= MHash[m]; m++; }
+                HSHA.Dispose();
+
                 int ByteOffset = 0;
                 int NonceSize = System.BitConverter.ToInt32(EncryptedBuffer, ByteOffset); byte[] Nonce = new byte[NonceSize]; ByteOffset += 4;
-                System.Buffer.BlockCopy(EncryptedBuffer, ByteOffset, Nonce, 0, NonceSize); ByteOffset += NonceSize;
+                int TagSize = System.BitConverter.ToInt32(EncryptedBuffer, ByteOffset); byte[] Tag = new byte[TagSize]; ByteOffset += 4;
 
-                int TagSize = System.BitConverter.ToInt32(EncryptedBuffer, 4 + NonceSize); byte[] Tag = new byte[TagSize]; ByteOffset += 4;
-                System.Buffer.BlockCopy(EncryptedBuffer, 4 + NonceSize + 4, Tag, 0, TagSize); ByteOffset += TagSize;
+                System.Buffer.BlockCopy(EncryptedBuffer, ByteOffset, Nonce, 0, NonceSize); ByteOffset += NonceSize;
+                System.Buffer.BlockCopy(EncryptedBuffer, ByteOffset, Tag, 0, TagSize); ByteOffset += TagSize;
 
                 byte[] EncryptedData = new byte[EncryptedBuffer.Length - ByteOffset];
                 System.Buffer.BlockCopy(EncryptedBuffer, ByteOffset, EncryptedData, 0, EncryptedData.Length);
 
-                System.Array.Resize(ref EncryptionPassword, 32); Output = new byte[EncryptedData.Length];
-                System.Security.Cryptography.AesGcm AES = new System.Security.Cryptography.AesGcm(EncryptionPassword);
+                Output = new byte[EncryptedData.Length];
 
                 AES.Decrypt(Nonce, EncryptedData, Tag, Output);
 
@@ -366,8 +392,10 @@ namespace Layernt
                 System.Buffer.BlockCopy(System.BitConverter.GetBytes(Count), 0, DataToEncrypt, 4 + DataName.Length, 4); //Count.
                 System.Buffer.BlockCopy(Buffer, Offset, DataToEncrypt, 4 + DataName.Length + 4, Count); //Actual Data.
 
-                System.Array.Resize(ref EncryptionPassword, 32); //Make sure password fits.
-                System.Security.Cryptography.AesGcm AES = new System.Security.Cryptography.AesGcm(EncryptionPassword);
+                var Sha = System.Security.Cryptography.SHA256.Create(); byte[] PWHash = Sha.ComputeHash(EncryptionPassword);
+                System.Security.Cryptography.AesGcm AES = new System.Security.Cryptography.AesGcm(PWHash);
+                Sha.Dispose(); var HSHA = new System.Security.Cryptography.HMACSHA256(PWHash);
+
                 byte[] Nonce = System.Security.Cryptography.RandomNumberGenerator.GetBytes(System.Security.Cryptography.AesGcm.NonceByteSizes.MaxSize); //RNG.
                 byte[] Tag = new byte[UsePlatformSafeEncryption ? 12 : System.Security.Cryptography.AesGcm.TagByteSizes.MaxSize]; //Gets and Stores Tag.
                 byte[] WriteBuffer = new byte[4 + Nonce.Length + 4 + Tag.Length]; //Buffer to store all.
@@ -379,11 +407,15 @@ namespace Layernt
 
                 byte[] EncryptedData = new byte[DataToEncrypt.Length]; int EncBitOffset = 0; // 1:1.
                 System.Buffer.BlockCopy(System.BitConverter.GetBytes(Nonce.Length), 0, WriteBuffer, EncBitOffset, 4); EncBitOffset += 4; //Write Nonce len.
-                System.Buffer.BlockCopy(Nonce, 0, WriteBuffer, EncBitOffset, Nonce.Length); EncBitOffset += Nonce.Length; //Write Nonce.
                 System.Buffer.BlockCopy(System.BitConverter.GetBytes(Tag.Length), 0, WriteBuffer, EncBitOffset, 4); EncBitOffset += 4; //Write Tag Len.
+                System.Buffer.BlockCopy(Nonce, 0, WriteBuffer, EncBitOffset, Nonce.Length); EncBitOffset += Nonce.Length; //Write Nonce.
                 AES.Encrypt(Nonce, DataToEncrypt, EncryptedData, Tag); //Encrypt Data.
                 System.Buffer.BlockCopy(Tag, 0, WriteBuffer, EncBitOffset, Tag.Length); EncBitOffset += Tag.Length;
                 System.Buffer.BlockCopy(EncryptedData, 0, WriteBuffer, EncBitOffset, EncryptedData.Length); EncBitOffset += EncryptedData.Length;
+
+                var MHash = HSHA.ComputeHash(WriteBuffer, 8, BufferByteSize - 8);
+                int m = 0; while (m < 8) { WriteBuffer[m] += MHash[m]; m++; }
+                HSHA.Dispose();
 
                 int TotalPixelCount = Image.Width * Image.Height, z, n = 1; //1 for the pixel we used for bit size/count.
                 long BitOffset = 0, TotalBitsToWrite = BufferByteSize * 8;
@@ -443,18 +475,25 @@ namespace Layernt
                 byte[] EncryptedBuffer = new byte[BufferByteSize];
                 ReadInPixels(Image.Width * Image.Height, EncryptedBuffer, RawPixelArray, BytesPerBang, SaveBits);
 
+                var Sha = System.Security.Cryptography.SHA256.Create(); byte[] PWHash = Sha.ComputeHash(EncryptionPassword);
+                System.Security.Cryptography.AesGcm AES = new System.Security.Cryptography.AesGcm(PWHash);
+                Sha.Dispose(); var HSHA = new System.Security.Cryptography.HMACSHA256(PWHash);
+
+                var MHash = HSHA.ComputeHash(EncryptedBuffer, 8, BufferByteSize - 8);
+                int m = 0; while (m < 8) { EncryptedBuffer[m] -= MHash[m]; m++; }
+                HSHA.Dispose();
+
                 int ByteOffset = 0;
                 int NonceSize = System.BitConverter.ToInt32(EncryptedBuffer, ByteOffset); byte[] Nonce = new byte[NonceSize]; ByteOffset += 4;
-                System.Buffer.BlockCopy(EncryptedBuffer, ByteOffset, Nonce, 0, NonceSize); ByteOffset += NonceSize;
+                int TagSize = System.BitConverter.ToInt32(EncryptedBuffer, ByteOffset); byte[] Tag = new byte[TagSize]; ByteOffset += 4;
 
-                int TagSize = System.BitConverter.ToInt32(EncryptedBuffer, 4 + NonceSize); byte[] Tag = new byte[TagSize]; ByteOffset += 4;
-                System.Buffer.BlockCopy(EncryptedBuffer, 4 + NonceSize + 4, Tag, 0, TagSize); ByteOffset += TagSize;
+                System.Buffer.BlockCopy(EncryptedBuffer, ByteOffset, Nonce, 0, NonceSize); ByteOffset += NonceSize;
+                System.Buffer.BlockCopy(EncryptedBuffer, ByteOffset, Tag, 0, TagSize); ByteOffset += TagSize;
 
                 byte[] EncryptedData = new byte[EncryptedBuffer.Length - ByteOffset];
                 System.Buffer.BlockCopy(EncryptedBuffer, ByteOffset, EncryptedData, 0, EncryptedData.Length);
 
-                System.Array.Resize(ref EncryptionPassword, 32); Output = new byte[EncryptedData.Length];
-                System.Security.Cryptography.AesGcm AES = new System.Security.Cryptography.AesGcm(EncryptionPassword);
+                Output = new byte[EncryptedData.Length];
 
                 AES.Decrypt(Nonce, EncryptedData, Tag, Output);
 
@@ -495,8 +534,10 @@ namespace Layernt
                 System.Buffer.BlockCopy(System.BitConverter.GetBytes(Count), 0, DataToEncrypt, 4 + DataName.Length, 4); //Count.
                 System.Buffer.BlockCopy(Buffer, Offset, DataToEncrypt, 4 + DataName.Length + 4, Count); //Actual Data.
 
-                System.Array.Resize(ref EncryptionPassword, 32); //Make sure password fits.
-                System.Security.Cryptography.AesGcm AES = new System.Security.Cryptography.AesGcm(EncryptionPassword);
+                var Sha = System.Security.Cryptography.SHA256.Create(); byte[] PWHash = Sha.ComputeHash(EncryptionPassword);
+                System.Security.Cryptography.AesGcm AES = new System.Security.Cryptography.AesGcm(PWHash);
+                Sha.Dispose(); var HSHA = new System.Security.Cryptography.HMACSHA256(PWHash);
+
                 byte[] Nonce = System.Security.Cryptography.RandomNumberGenerator.GetBytes(System.Security.Cryptography.AesGcm.NonceByteSizes.MaxSize); //RNG.
                 byte[] Tag = new byte[UsePlatformSafeEncryption ? 12 : System.Security.Cryptography.AesGcm.TagByteSizes.MaxSize]; //Gets and Stores Tag.
                 byte[] WriteBuffer = new byte[4 + Nonce.Length + 4 + Tag.Length]; //Buffer to store all.
@@ -508,11 +549,15 @@ namespace Layernt
 
                 byte[] EncryptedData = new byte[DataToEncrypt.Length]; int EncBitOffset = 0; // 1:1.
                 System.Buffer.BlockCopy(System.BitConverter.GetBytes(Nonce.Length), 0, WriteBuffer, EncBitOffset, 4); EncBitOffset += 4; //Write Nonce len.
-                System.Buffer.BlockCopy(Nonce, 0, WriteBuffer, EncBitOffset, Nonce.Length); EncBitOffset += Nonce.Length; //Write Nonce.
                 System.Buffer.BlockCopy(System.BitConverter.GetBytes(Tag.Length), 0, WriteBuffer, EncBitOffset, 4); EncBitOffset += 4; //Write Tag Len.
+                System.Buffer.BlockCopy(Nonce, 0, WriteBuffer, EncBitOffset, Nonce.Length); EncBitOffset += Nonce.Length; //Write Nonce.
                 AES.Encrypt(Nonce, DataToEncrypt, EncryptedData, Tag); //Encrypt Data.
                 System.Buffer.BlockCopy(Tag, 0, WriteBuffer, EncBitOffset, Tag.Length); EncBitOffset += Tag.Length;
                 System.Buffer.BlockCopy(EncryptedData, 0, WriteBuffer, EncBitOffset, EncryptedData.Length); EncBitOffset += EncryptedData.Length;
+
+                var MHash = HSHA.ComputeHash(WriteBuffer, 8, BufferByteSize - 8);
+                int m = 0; while (m < 8) { WriteBuffer[m] += MHash[m]; m++; }
+                HSHA.Dispose();
 
                 int TotalPixelCount = Image.Width * Image.Height, z, n = 1; //1 for the pixel we used for bit size/count.
                 long BitOffset = 0, TotalBitsToWrite = BufferByteSize * 8;
@@ -574,18 +619,25 @@ namespace Layernt
                 byte[] EncryptedBuffer = new byte[BufferByteSize];
                 ReadInPixels(Image.Width * Image.Height, EncryptedBuffer, RawPixelArray, BytesPerBang, SaveBits);
 
+                var Sha = System.Security.Cryptography.SHA256.Create(); byte[] PWHash = Sha.ComputeHash(EncryptionPassword);
+                System.Security.Cryptography.AesGcm AES = new System.Security.Cryptography.AesGcm(PWHash);
+                Sha.Dispose(); var HSHA = new System.Security.Cryptography.HMACSHA256(PWHash);
+
+                var MHash = HSHA.ComputeHash(EncryptedBuffer, 8, BufferByteSize - 8);
+                int m = 0; while (m < 8) { EncryptedBuffer[m] -= MHash[m]; m++; }
+                HSHA.Dispose();
+
                 int ByteOffset = 0;
                 int NonceSize = System.BitConverter.ToInt32(EncryptedBuffer, ByteOffset); byte[] Nonce = new byte[NonceSize]; ByteOffset += 4;
-                System.Buffer.BlockCopy(EncryptedBuffer, ByteOffset, Nonce, 0, NonceSize); ByteOffset += NonceSize;
+                int TagSize = System.BitConverter.ToInt32(EncryptedBuffer, ByteOffset); byte[] Tag = new byte[TagSize]; ByteOffset += 4;
 
-                int TagSize = System.BitConverter.ToInt32(EncryptedBuffer, 4 + NonceSize); byte[] Tag = new byte[TagSize]; ByteOffset += 4;
-                System.Buffer.BlockCopy(EncryptedBuffer, 4 + NonceSize + 4, Tag, 0, TagSize); ByteOffset += TagSize;
+                System.Buffer.BlockCopy(EncryptedBuffer, ByteOffset, Nonce, 0, NonceSize); ByteOffset += NonceSize;
+                System.Buffer.BlockCopy(EncryptedBuffer, ByteOffset, Tag, 0, TagSize); ByteOffset += TagSize;
 
                 byte[] EncryptedData = new byte[EncryptedBuffer.Length - ByteOffset];
                 System.Buffer.BlockCopy(EncryptedBuffer, ByteOffset, EncryptedData, 0, EncryptedData.Length);
 
-                System.Array.Resize(ref EncryptionPassword, 32); Output = new byte[EncryptedData.Length];
-                System.Security.Cryptography.AesGcm AES = new System.Security.Cryptography.AesGcm(EncryptionPassword);
+                Output = new byte[EncryptedData.Length];
 
                 AES.Decrypt(Nonce, EncryptedData, Tag, Output);
 
