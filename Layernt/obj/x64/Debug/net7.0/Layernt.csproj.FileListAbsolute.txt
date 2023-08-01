@@ -12,3 +12,17 @@ C:\My Storage\My Projects\- Main Projects\Layernt\Layernt\obj\x64\Debug\net7.0\L
 C:\My Storage\My Projects\- Main Projects\Layernt\Layernt\obj\x64\Debug\net7.0\ref\Layernt.dll
 C:\My Storage\My Projects\- Main Projects\Layernt\Layernt\bin\x64\Debug\net7.0\SixLabors.ImageSharp.dll
 C:\My Storage\My Projects\- Main Projects\Layernt\Layernt\obj\x64\Debug\net7.0\Layernt.csproj.CopyComplete
+C:\My Storage\My Projects\- Main Projects\Layernt_GIT\Layernt\Layernt\bin\x64\Debug\net7.0\Layernt.deps.json
+C:\My Storage\My Projects\- Main Projects\Layernt_GIT\Layernt\Layernt\bin\x64\Debug\net7.0\Layernt.dll
+C:\My Storage\My Projects\- Main Projects\Layernt_GIT\Layernt\Layernt\bin\x64\Debug\net7.0\Layernt.pdb
+C:\My Storage\My Projects\- Main Projects\Layernt_GIT\Layernt\Layernt\bin\x64\Debug\net7.0\SixLabors.ImageSharp.dll
+C:\My Storage\My Projects\- Main Projects\Layernt_GIT\Layernt\Layernt\obj\x64\Debug\net7.0\Layernt.csproj.AssemblyReference.cache
+C:\My Storage\My Projects\- Main Projects\Layernt_GIT\Layernt\Layernt\obj\x64\Debug\net7.0\Layernt.GeneratedMSBuildEditorConfig.editorconfig
+C:\My Storage\My Projects\- Main Projects\Layernt_GIT\Layernt\Layernt\obj\x64\Debug\net7.0\Layernt.AssemblyInfoInputs.cache
+C:\My Storage\My Projects\- Main Projects\Layernt_GIT\Layernt\Layernt\obj\x64\Debug\net7.0\Layernt.AssemblyInfo.cs
+C:\My Storage\My Projects\- Main Projects\Layernt_GIT\Layernt\Layernt\obj\x64\Debug\net7.0\Layernt.csproj.CoreCompileInputs.cache
+C:\My Storage\My Projects\- Main Projects\Layernt_GIT\Layernt\Layernt\obj\x64\Debug\net7.0\Layernt.csproj.CopyComplete
+C:\My Storage\My Projects\- Main Projects\Layernt_GIT\Layernt\Layernt\obj\x64\Debug\net7.0\Layernt.dll
+C:\My Storage\My Projects\- Main Projects\Layernt_GIT\Layernt\Layernt\obj\x64\Debug\net7.0\refint\Layernt.dll
+C:\My Storage\My Projects\- Main Projects\Layernt_GIT\Layernt\Layernt\obj\x64\Debug\net7.0\Layernt.pdb
+C:\My Storage\My Projects\- Main Projects\Layernt_GIT\Layernt\Layernt\obj\x64\Debug\net7.0\ref\Layernt.dll

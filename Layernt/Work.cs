@@ -71,11 +71,11 @@ namespace Layernt
 
         public static int GetTotalPossibleBufferSize3CH(int SizeX, int SizeY, int SaveBits)
         {
-            return (((SizeX * SizeY) - 1) * 3 * SaveBits) / 8; //-1 For the save bit header.
+            return (int)((((SizeX * (long)SizeY) - 1) * 3 * SaveBits) / 8); //-1 For the save bit header.
         }
         public static int GetTotalPossibleBufferSize4CH(int SizeX, int SizeY, int SaveBits)
         {
-            return (((SizeX * SizeY) - 1) * 4 * SaveBits) / 8; //-1 For the save bit header.
+            return (int)((((SizeX * (long)SizeY) - 1) * 4 * SaveBits) / 8); //-1 For the save bit header.
         }
 
         private static SixLabors.ImageSharp.Image<Rgb24> ConvertToImage24_3CH(string FileName)

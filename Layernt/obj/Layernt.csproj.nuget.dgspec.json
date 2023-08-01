@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\My Storage\\My Projects\\- Main Projects\\Layernt\\Layernt\\Layernt.csproj": {}
+    "C:\\My Storage\\My Projects\\- Main Projects\\Layernt_GIT\\Layernt\\Layernt\\Layernt.csproj": {}
   },
   "projects": {
-    "C:\\My Storage\\My Projects\\- Main Projects\\Layernt\\Layernt\\Layernt.csproj": {
+    "C:\\My Storage\\My Projects\\- Main Projects\\Layernt_GIT\\Layernt\\Layernt\\Layernt.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\My Storage\\My Projects\\- Main Projects\\Layernt\\Layernt\\Layernt.csproj",
+        "projectUniqueName": "C:\\My Storage\\My Projects\\- Main Projects\\Layernt_GIT\\Layernt\\Layernt\\Layernt.csproj",
         "projectName": "Layernt",
-        "projectPath": "C:\\My Storage\\My Projects\\- Main Projects\\Layernt\\Layernt\\Layernt.csproj",
+        "projectPath": "C:\\My Storage\\My Projects\\- Main Projects\\Layernt_GIT\\Layernt\\Layernt\\Layernt.csproj",
         "packagesPath": "C:\\Users\\SubSpecs\\.nuget\\packages\\",
-        "outputPath": "C:\\My Storage\\My Projects\\- Main Projects\\Layernt\\Layernt\\obj\\",
+        "outputPath": "C:\\My Storage\\My Projects\\- Main Projects\\Layernt_GIT\\Layernt\\Layernt\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -60,7 +60,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -123,9 +123,9 @@ namespace LayerntGUI
                             {
                                 int FileSize = (int)(new System.IO.FileInfo(textBox2.Text).Length);
                                 int SaveBits = Layernt.Layernt.GetPerfectSaveBits(textBox1.Text, true, checkBox1.Checked, FileSize, System.IO.Path.GetFileName(textBox2.Text));
-                                int MaxBufferSpace = (int)Layernt.Layernt.GetAvailableSpace(textBox1.Text, true, 8, checkBox1.Checked, System.IO.Path.GetFileName(textBox2.Text));
+                                long MaxBufferSpace = Layernt.Layernt.GetAvailableSpace(textBox1.Text, true, 8, checkBox1.Checked, System.IO.Path.GetFileName(textBox2.Text));
 
-                                textBox5.Text = "Total Available: " + (FileSize / 1024f).ToString("#.##") + " KB / " + (MaxBufferSpace / 1024f).ToString("#.##") + " KB";
+                                textBox5.Text = "Total Available: " + (FileSize / 1024d).ToString("#.##") + " KB / " + (MaxBufferSpace / 1024d).ToString("#.##") + " KB";
 
                                 if (FileSize > MaxBufferSpace) { textBox5.Text += "\r\nWARNING: Need a bigger image or more bits per pixel to store!"; DoesntFit = true; textBox5.ForeColor = Color.Red; textBox5.BackColor = textBox5.BackColor; } else { DoesntFit = false; textBox5.ForeColor = Color.Black; textBox5.BackColor = textBox5.BackColor; }
                                 return;
@@ -136,8 +136,8 @@ namespace LayerntGUI
                         {
                             if (System.IO.File.Exists(textBox1.Text))
                             {
-                                int MaxBufferSpace = (int)Layernt.Layernt.GetAvailableSpace(textBox1.Text, true, 8, checkBox1.Checked, null);
-                                textBox5.Text = "Total Available: " + (MaxBufferSpace / 1024f).ToString("#.##") + " KB";
+                                long MaxBufferSpace = Layernt.Layernt.GetAvailableSpace(textBox1.Text, true, 8, checkBox1.Checked, null);
+                                textBox5.Text = "Total Available: " + (MaxBufferSpace / 1024d).ToString("#.##") + " KB";
                                 return;
                             }
                         }
@@ -153,9 +153,9 @@ namespace LayerntGUI
                             {
                                 int FileSize = (int)(new System.IO.FileInfo(textBox2.Text).Length);
                                 int SaveBits = Layernt.Layernt.GetPerfectSaveBits(textBox1.Text, false, checkBox1.Checked, FileSize, System.IO.Path.GetFileName(textBox2.Text));
-                                int MaxBufferSpace = (int)Layernt.Layernt.GetAvailableSpace(textBox1.Text, false, 8, checkBox1.Checked, System.IO.Path.GetFileName(textBox2.Text));
+                                long MaxBufferSpace = Layernt.Layernt.GetAvailableSpace(textBox1.Text, false, 8, checkBox1.Checked, System.IO.Path.GetFileName(textBox2.Text));
 
-                                textBox5.Text = "Total Available: " + (FileSize / 1024f).ToString("#.##") + " KB / " + (MaxBufferSpace / 1024f).ToString("#.##") + " KB";
+                                textBox5.Text = "Total Available: " + (FileSize / 1024d).ToString("#.##") + " KB / " + (MaxBufferSpace / 1024d).ToString("#.##") + " KB";
 
                                 if (FileSize > MaxBufferSpace) { textBox5.Text += "\r\nWARNING: Need a bigger image or more bits per pixel to store!"; DoesntFit = true; textBox5.ForeColor = Color.Red; textBox5.BackColor = textBox5.BackColor; } else { DoesntFit = false; textBox5.ForeColor = Color.Black; textBox5.BackColor = textBox5.BackColor; }
                                 return;
@@ -166,8 +166,8 @@ namespace LayerntGUI
                         {
                             if (System.IO.File.Exists(textBox1.Text))
                             {
-                                int MaxBufferSpace = (int)Layernt.Layernt.GetAvailableSpace(textBox1.Text, false, 8, checkBox1.Checked, null);
-                                textBox5.Text = "Total Available: " + (MaxBufferSpace / 1024f).ToString("#.##") + " KB";
+                                long MaxBufferSpace = Layernt.Layernt.GetAvailableSpace(textBox1.Text, false, 8, checkBox1.Checked, null);
+                                textBox5.Text = "Total Available: " + (MaxBufferSpace / 1024d).ToString("#.##") + " KB";
                                 return;
                             }
                         }
@@ -183,9 +183,9 @@ namespace LayerntGUI
                             {
                                 int FileSize = (int)(new System.IO.FileInfo(textBox2.Text).Length);
                                 int SaveBits = Layernt.Layernt.GetPerfectSaveBits(textBox1.Text, true, checkBox1.Checked, FileSize, System.IO.Path.GetFileName(textBox2.Text));
-                                int MaxBufferSpace = (int)Layernt.Layernt.GetAvailableSpace(textBox1.Text, true, 16, checkBox1.Checked, System.IO.Path.GetFileName(textBox2.Text));
+                                long MaxBufferSpace = Layernt.Layernt.GetAvailableSpace(textBox1.Text, true, 16, checkBox1.Checked, System.IO.Path.GetFileName(textBox2.Text));
 
-                                textBox5.Text = "Total Available: " + (FileSize / 1024f).ToString("#.##") + " KB / " + (MaxBufferSpace / 1024f).ToString("#.##") + " KB";
+                                textBox5.Text = "Total Available: " + (FileSize / 1024d).ToString("#.##") + " KB / " + (MaxBufferSpace / 1024d).ToString("#.##") + " KB";
 
                                 if (FileSize > MaxBufferSpace) { textBox5.Text += "\r\nWARNING: Need a bigger image or more bits per pixel to store!"; DoesntFit = true; textBox5.ForeColor = Color.Red; textBox5.BackColor = textBox5.BackColor; }
                                 else if (textBox3.Text != null && textBox3.Text != "" && System.IO.Path.GetExtension(textBox3.Text) != ".png") { textBox3.Text = System.IO.Path.ChangeExtension(textBox3.Text, ".png"); textBox5.Text += "\r\nNOTE: 48bit+ images only support the '.png' format, changing output."; DoesntFit = false; textBox5.ForeColor = Color.Violet; textBox5.BackColor = textBox5.BackColor; } else { DoesntFit = false; textBox5.ForeColor = Color.Black; textBox5.BackColor = textBox5.BackColor; }
@@ -197,8 +197,8 @@ namespace LayerntGUI
                         {
                             if (System.IO.File.Exists(textBox1.Text))
                             {
-                                int MaxBufferSpace = (int)Layernt.Layernt.GetAvailableSpace(textBox1.Text, true, 16, checkBox1.Checked, null);
-                                textBox5.Text = "Total Available: " + (MaxBufferSpace / 1024f).ToString("#.##") + " KB";
+                                long MaxBufferSpace = Layernt.Layernt.GetAvailableSpace(textBox1.Text, true, 16, checkBox1.Checked, null);
+                                textBox5.Text = "Total Available: " + (MaxBufferSpace / 1024d).ToString("#.##") + " KB";
                                 return;
                             }
                         }
@@ -214,9 +214,9 @@ namespace LayerntGUI
                             {
                                 int FileSize = (int)(new System.IO.FileInfo(textBox2.Text).Length);
                                 int SaveBits = Layernt.Layernt.GetPerfectSaveBits(textBox1.Text, false, checkBox1.Checked, FileSize, System.IO.Path.GetFileName(textBox2.Text));
-                                int MaxBufferSpace = (int)Layernt.Layernt.GetAvailableSpace(textBox1.Text, false, 16, checkBox1.Checked, System.IO.Path.GetFileName(textBox2.Text));
+                                long MaxBufferSpace = Layernt.Layernt.GetAvailableSpace(textBox1.Text, false, 16, checkBox1.Checked, System.IO.Path.GetFileName(textBox2.Text));
 
-                                textBox5.Text = "Total Available: " + (FileSize / 1024f).ToString("#.##") + " KB / " + (MaxBufferSpace / 1024f).ToString("#.##") + " KB";
+                                textBox5.Text = "Total Available: " + (FileSize / 1024d).ToString("#.##") + " KB / " + (MaxBufferSpace / 1024d).ToString("#.##") + " KB";
 
                                 if (FileSize > MaxBufferSpace) { textBox5.Text += "\r\nWARNING: Need a bigger image or more bits per pixel to store!"; DoesntFit = true; textBox5.ForeColor = Color.Red; textBox5.BackColor = textBox5.BackColor; }
                                 else if (textBox3.Text != null && textBox3.Text != "" && System.IO.Path.GetExtension(textBox3.Text) != ".png") { textBox3.Text = System.IO.Path.ChangeExtension(textBox3.Text, ".png"); textBox5.Text += "\r\nNOTE: 48bit+ images only support the '.png' format, changing output."; DoesntFit = false; textBox5.ForeColor = Color.Violet; textBox5.BackColor = textBox5.BackColor; } else { DoesntFit = false; textBox5.ForeColor = Color.Black; textBox5.BackColor = textBox5.BackColor; }
@@ -228,8 +228,8 @@ namespace LayerntGUI
                         {
                             if (System.IO.File.Exists(textBox1.Text))
                             {
-                                int MaxBufferSpace = (int)Layernt.Layernt.GetAvailableSpace(textBox1.Text, false, 16, checkBox1.Checked, null);
-                                textBox5.Text = "Total Available: " + (MaxBufferSpace / 1024f).ToString("#.##") + " KB";
+                                long MaxBufferSpace = Layernt.Layernt.GetAvailableSpace(textBox1.Text, false, 16, checkBox1.Checked, null);
+                                textBox5.Text = "Total Available: " + (MaxBufferSpace / 1024d).ToString("#.##") + " KB";
                                 return;
                             }
                         }

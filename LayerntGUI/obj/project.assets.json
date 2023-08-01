@@ -33,11 +33,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\My Storage\\My Projects\\- Main Projects\\Layernt\\LayerntGUI\\LayerntGUI.csproj",
+      "projectUniqueName": "C:\\My Storage\\My Projects\\- Main Projects\\Layernt_GIT\\Layernt\\LayerntGUI\\LayerntGUI.csproj",
       "projectName": "LayerntGUI",
-      "projectPath": "C:\\My Storage\\My Projects\\- Main Projects\\Layernt\\LayerntGUI\\LayerntGUI.csproj",
+      "projectPath": "C:\\My Storage\\My Projects\\- Main Projects\\Layernt_GIT\\Layernt\\LayerntGUI\\LayerntGUI.csproj",
       "packagesPath": "C:\\Users\\SubSpecs\\.nuget\\packages\\",
-      "outputPath": "C:\\My Storage\\My Projects\\- Main Projects\\Layernt\\LayerntGUI\\obj\\",
+      "outputPath": "C:\\My Storage\\My Projects\\- Main Projects\\Layernt_GIT\\Layernt\\LayerntGUI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -59,8 +59,8 @@
         "net7.0-windows7.0": {
           "targetAlias": "net7.0-windows",
           "projectReferences": {
-            "C:\\My Storage\\My Projects\\- Main Projects\\Layernt\\Layernt\\Layernt.csproj": {
-              "projectPath": "C:\\My Storage\\My Projects\\- Main Projects\\Layernt\\Layernt\\Layernt.csproj"
+            "C:\\My Storage\\My Projects\\- Main Projects\\Layernt_GIT\\Layernt\\Layernt\\Layernt.csproj": {
+              "projectPath": "C:\\My Storage\\My Projects\\- Main Projects\\Layernt_GIT\\Layernt\\Layernt\\Layernt.csproj"
             }
           }
         }
@@ -93,7 +93,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
       }
     }
   }

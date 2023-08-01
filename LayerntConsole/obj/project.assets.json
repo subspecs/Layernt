@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\My Storage\\My Projects\\- Main Projects\\Layernt\\LayerntConsole\\LayerntConsole.csproj",
+      "projectUniqueName": "C:\\My Storage\\My Projects\\- Main Projects\\Layernt_GIT\\Layernt\\LayerntConsole\\LayerntConsole.csproj",
       "projectName": "LayerntConsole",
-      "projectPath": "C:\\My Storage\\My Projects\\- Main Projects\\Layernt\\LayerntConsole\\LayerntConsole.csproj",
+      "projectPath": "C:\\My Storage\\My Projects\\- Main Projects\\Layernt_GIT\\Layernt\\LayerntConsole\\LayerntConsole.csproj",
       "packagesPath": "C:\\Users\\SubSpecs\\.nuget\\packages\\",
-      "outputPath": "C:\\My Storage\\My Projects\\- Main Projects\\Layernt\\LayerntConsole\\obj\\",
+      "outputPath": "C:\\My Storage\\My Projects\\- Main Projects\\Layernt_GIT\\Layernt\\LayerntConsole\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -67,7 +67,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
       }
     }
   }
