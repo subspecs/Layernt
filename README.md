@@ -1,7 +1,7 @@
 # Layernt
 A multiplatform application that can hide files inside images by encoding them straight into the pixels themselves rather than using any meta data at all.<br>
 In short, it is basically physically impossible to tell a difference between an noisy image or an encrypted(needs a password) image.<br>
-Makes hiding stuff very safe! Good luck to **FBI**/**CIA**. ^^<br>
+Makes hiding stuff very safe!<br>
 
 The encoded images appear completely normal from the surface, and since no meta data is being used they can be uploaded to any* image host and you can essentially host files online for free.<br>
 Or you can use **Layernt** to store your secret porn stash on your phones image gallery by encrypting the images there.<br>
@@ -20,4 +20,6 @@ Head on over to [releases](https://github.com/subspecs/Layernt/releases) and dow
 If you have issues, complain in the [issue tracker](https://github.com/subspecs/Layernt/issues)!<br>
 ![](https://i.imgur.com/VCyKEoa.png)<br><br>
 If it complains about the ".NET 7 is not installed", then head over to [microsoft](https://dotnet.microsoft.com/en-us/download/dotnet/7.0) and download it. (Might need a PC restart, probably not tho.)<br>
-![](https://i.imgur.com/K8KiMLk.png)
+![](https://i.imgur.com/K8KiMLk.png)<br>
+P.S: If it complains about the **file being corrupted** even tho you know it isn't, then it probably **doesn't have permission to save to that location**. (Usually a C:\ drive problem on windows.)<br>
+Translation: Right Click App => "Run as Administrator".<br>
