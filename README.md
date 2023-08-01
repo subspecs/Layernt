@@ -1,7 +1,7 @@
 # Layernt
 A multiplatform application that can hide files inside images by encoding them straight into the pixels themselves rather than using any meta data at all.<br>
 In short, it is basically physically impossible to tell a difference between an noisy image or an encrypted(needs a password) image.<br>
-Makes hiding stuff very safe! Good luck to **FBI**/**CIA**. ^^<br>
+Makes hiding stuff very safe!<br>
 
 The encoded images appear completely normal from the surface, and since no meta data is being used they can be uploaded to any* image host and you can essentially host files online for free.<br>
 Or you can use **Layernt** to store your secret porn stash on your phones image gallery by encrypting the images there.<br>
