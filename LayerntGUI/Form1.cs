@@ -130,7 +130,8 @@ namespace LayerntGUI
 
                                 textBox5.Text = "Total Available: " + (FileSize / 1024d).ToString("#.##") + " KB / " + (MaxBufferSpace / 1024d).ToString("#.##") + " KB";
 
-                                if (FileSize > MaxBufferSpace) { textBox5.Text += "\r\nWARNING: Need a bigger image or more bits per pixel/bits per channel to store!"; DoesntFit = true; textBox5.ForeColor = Color.Red; textBox5.BackColor = textBox5.BackColor; } else { DoesntFit = false; textBox5.ForeColor = Color.Black; textBox5.BackColor = textBox5.BackColor; }
+                                if (FileSize > MaxBufferSpace) { textBox5.Text += "\r\nWARNING: Need a bigger image or more bits per pixel/bits per channel to store!"; DoesntFit = true; textBox5.ForeColor = Color.Red; textBox5.BackColor = textBox5.BackColor; }
+                                else if (textBox3.Text != null && textBox3.Text != "" && System.IO.Path.GetExtension(textBox3.Text) == ".webp") { textBox3.Text = System.IO.Path.ChangeExtension(textBox3.Text, ".png"); textBox5.Text += "\r\nNOTE: WebP doesn't save 24bit(ImageSharp bug) images at this time."; DoesntFit = false; textBox5.ForeColor = Color.Violet; textBox5.BackColor = textBox5.BackColor; } else { DoesntFit = false; textBox5.ForeColor = Color.Black; textBox5.BackColor = textBox5.BackColor; }
                                 return;
                             }
                         }

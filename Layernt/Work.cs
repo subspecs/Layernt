@@ -141,7 +141,7 @@ namespace Layernt
                     if (BitOffset == TotalBitsToWrite) { break; } //Speed.
                     n++;
                 }
-
+                
                 switch (System.IO.Path.GetExtension(OutputImage).ToLower())
                 {
                     case ".png": { Image.Save(OutputImage, new PngEncoder() { CompressionLevel = PngCompressionLevel.BestCompression, BitDepth = PngBitDepth.Bit8, TransparentColorMode = PngTransparentColorMode.Clear, ColorType = PngColorType.Rgb }); } break;
