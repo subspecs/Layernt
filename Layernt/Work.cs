@@ -127,6 +127,9 @@ namespace Layernt
                 System.Buffer.BlockCopy(Tag, 0, WriteBuffer, EncBitOffset, Tag.Length); EncBitOffset += Tag.Length;
                 System.Buffer.BlockCopy(EncryptedData, 0, WriteBuffer, EncBitOffset, EncryptedData.Length); EncBitOffset += EncryptedData.Length;
 
+                var RNG = new System.Random(System.BitConverter.ToInt32(PWHash, PWHash.Length - 4));
+                int q = 0; while (q < EncBitOffset) { WriteBuffer[q] ^= (byte)RNG.Next(0, 255); q++; } //XOR RNG
+
                 var MHash = HSHA.ComputeHash(WriteBuffer, 8, BufferByteSize - 8);
                 int m = 0; while (m < 8) { WriteBuffer[m] += MHash[m]; m++; }
                 HSHA.Dispose();
@@ -196,6 +199,9 @@ namespace Layernt
                 var MHash = HSHA.ComputeHash(EncryptedBuffer, 8, BufferByteSize - 8);
                 int m = 0; while (m < 8) { EncryptedBuffer[m] -= MHash[m]; m++; }
                 HSHA.Dispose();
+
+                var RNG = new System.Random(System.BitConverter.ToInt32(PWHash, PWHash.Length - 4));
+                int q = 0; while (q < EncryptedBuffer.Length) { EncryptedBuffer[q] ^= (byte)RNG.Next(0, 255); q++; } //XOR RNG
 
                 int ByteOffset = 0;
                 int NonceSize = System.BitConverter.ToInt32(EncryptedBuffer, ByteOffset); byte[] Nonce = new byte[NonceSize]; ByteOffset += 4;
@@ -269,6 +275,9 @@ namespace Layernt
                 System.Buffer.BlockCopy(Tag, 0, WriteBuffer, EncBitOffset, Tag.Length); EncBitOffset += Tag.Length;
                 System.Buffer.BlockCopy(EncryptedData, 0, WriteBuffer, EncBitOffset, EncryptedData.Length); EncBitOffset += EncryptedData.Length;
 
+                var RNG = new System.Random(System.BitConverter.ToInt32(PWHash, PWHash.Length - 4));
+                int q = 0; while (q < EncBitOffset) { WriteBuffer[q] ^= (byte)RNG.Next(0, 255); q++; } //XOR RNG
+
                 var MHash = HSHA.ComputeHash(WriteBuffer, 8, BufferByteSize - 8);
                 int m = 0; while (m < 8) { WriteBuffer[m] += MHash[m]; m++; }
                 HSHA.Dispose();
@@ -340,6 +349,9 @@ namespace Layernt
                 var MHash = HSHA.ComputeHash(EncryptedBuffer, 8, BufferByteSize - 8);
                 int m = 0; while (m < 8) { EncryptedBuffer[m] -= MHash[m]; m++; }
                 HSHA.Dispose();
+
+                var RNG = new System.Random(System.BitConverter.ToInt32(PWHash, PWHash.Length - 4));
+                int q = 0; while (q < EncryptedBuffer.Length) { EncryptedBuffer[q] ^= (byte)RNG.Next(0, 255); q++; } //XOR RNG
 
                 int ByteOffset = 0;
                 int NonceSize = System.BitConverter.ToInt32(EncryptedBuffer, ByteOffset); byte[] Nonce = new byte[NonceSize]; ByteOffset += 4;
@@ -413,6 +425,9 @@ namespace Layernt
                 System.Buffer.BlockCopy(Tag, 0, WriteBuffer, EncBitOffset, Tag.Length); EncBitOffset += Tag.Length;
                 System.Buffer.BlockCopy(EncryptedData, 0, WriteBuffer, EncBitOffset, EncryptedData.Length); EncBitOffset += EncryptedData.Length;
 
+                var RNG = new System.Random(System.BitConverter.ToInt32(PWHash, PWHash.Length - 4));
+                int q = 0; while (q < EncBitOffset) { WriteBuffer[q] ^= (byte)RNG.Next(0, 255); q++; } //XOR RNG
+
                 var MHash = HSHA.ComputeHash(WriteBuffer, 8, BufferByteSize - 8);
                 int m = 0; while (m < 8) { WriteBuffer[m] += MHash[m]; m++; }
                 HSHA.Dispose();
@@ -482,6 +497,9 @@ namespace Layernt
                 var MHash = HSHA.ComputeHash(EncryptedBuffer, 8, BufferByteSize - 8);
                 int m = 0; while (m < 8) { EncryptedBuffer[m] -= MHash[m]; m++; }
                 HSHA.Dispose();
+
+                var RNG = new System.Random(System.BitConverter.ToInt32(PWHash, PWHash.Length - 4));
+                int q = 0; while (q < EncryptedBuffer.Length) { EncryptedBuffer[q] ^= (byte)RNG.Next(0, 255); q++; } //XOR RNG
 
                 int ByteOffset = 0;
                 int NonceSize = System.BitConverter.ToInt32(EncryptedBuffer, ByteOffset); byte[] Nonce = new byte[NonceSize]; ByteOffset += 4;
@@ -555,6 +573,9 @@ namespace Layernt
                 System.Buffer.BlockCopy(Tag, 0, WriteBuffer, EncBitOffset, Tag.Length); EncBitOffset += Tag.Length;
                 System.Buffer.BlockCopy(EncryptedData, 0, WriteBuffer, EncBitOffset, EncryptedData.Length); EncBitOffset += EncryptedData.Length;
 
+                var RNG = new System.Random(System.BitConverter.ToInt32(PWHash, PWHash.Length - 4));
+                int q = 0; while (q < EncBitOffset) { WriteBuffer[q] ^= (byte)RNG.Next(0, 255); q++; } //XOR RNG
+
                 var MHash = HSHA.ComputeHash(WriteBuffer, 8, BufferByteSize - 8);
                 int m = 0; while (m < 8) { WriteBuffer[m] += MHash[m]; m++; }
                 HSHA.Dispose();
@@ -627,6 +648,9 @@ namespace Layernt
                 int m = 0; while (m < 8) { EncryptedBuffer[m] -= MHash[m]; m++; }
                 HSHA.Dispose();
 
+                var RNG = new System.Random(System.BitConverter.ToInt32(PWHash, PWHash.Length - 4));
+                int q = 0; while (q < EncryptedBuffer.Length) { EncryptedBuffer[q] ^= (byte)RNG.Next(0, 255); q++; } //XOR RNG
+
                 int ByteOffset = 0;
                 int NonceSize = System.BitConverter.ToInt32(EncryptedBuffer, ByteOffset); byte[] Nonce = new byte[NonceSize]; ByteOffset += 4;
                 int TagSize = System.BitConverter.ToInt32(EncryptedBuffer, ByteOffset); byte[] Tag = new byte[TagSize]; ByteOffset += 4;
@@ -675,6 +699,9 @@ namespace Layernt
                 System.Buffer.BlockCopy(DataName, 0, DataToSave, 4, DataName.Length); //DataName.
                 System.Buffer.BlockCopy(System.BitConverter.GetBytes(Count), 0, DataToSave, 4 + DataName.Length, 4); //Count.
                 System.Buffer.BlockCopy(Buffer, Offset, DataToSave, 4 + DataName.Length + 4, Count); //Actual Data.
+
+                var RNG = new System.Random(69);
+                int q = 0; while (q < DataToSave.Length) { DataToSave[q] ^= (byte)RNG.Next(0, 255); q++; } //XOR RNG
 
                 int DataEndOffset = DataToSave.Length;
                 System.Array.Resize(ref DataToSave, BufferByteSize);
@@ -740,6 +767,9 @@ namespace Layernt
                 byte[] ReadBuffer = new byte[BufferByteSize];
                 ReadInPixels(Image.Width * Image.Height, ReadBuffer, RawPixelArray, BytesPerBang, SaveBits);
 
+                var RNG = new System.Random(69);
+                int q = 0; while (q < ReadBuffer.Length) { ReadBuffer[q] ^= (byte)RNG.Next(0, 255); q++; } //XOR RNG
+
                 int DataNameLength = System.BitConverter.ToInt32(ReadBuffer, 0); DataFileName = DataNameLength > 0 ? System.Text.Encoding.Unicode.GetString(ReadBuffer, 4, DataNameLength) : null;
                 int DataLength = System.BitConverter.ToInt32(ReadBuffer, 4 + DataNameLength); Output = new byte[DataLength]; System.Buffer.BlockCopy(ReadBuffer, 4 + DataNameLength + 4, Output, 0, DataLength); ;
 
@@ -773,6 +803,9 @@ namespace Layernt
                 System.Buffer.BlockCopy(DataName, 0, DataToSave, 4, DataName.Length); //DataName.
                 System.Buffer.BlockCopy(System.BitConverter.GetBytes(Count), 0, DataToSave, 4 + DataName.Length, 4); //Count.
                 System.Buffer.BlockCopy(Buffer, Offset, DataToSave, 4 + DataName.Length + 4, Count); //Actual Data.
+
+                var RNG = new System.Random(69);
+                int q = 0; while (q < DataToSave.Length) { DataToSave[q] ^= (byte)RNG.Next(0, 255); q++; } //XOR RNG
 
                 int DataEndOffset = DataToSave.Length;
                 System.Array.Resize(ref DataToSave, BufferByteSize);
@@ -840,6 +873,9 @@ namespace Layernt
                 byte[] ReadBuffer = new byte[BufferByteSize];
                 ReadInPixels(Image.Width * Image.Height, ReadBuffer, RawPixelArray, BytesPerBang, SaveBits);
 
+                var RNG = new System.Random(69);
+                int q = 0; while (q < ReadBuffer.Length) { ReadBuffer[q] ^= (byte)RNG.Next(0, 255); q++; } //XOR RNG
+
                 int DataNameLength = System.BitConverter.ToInt32(ReadBuffer, 0); DataFileName = DataNameLength > 0 ? System.Text.Encoding.Unicode.GetString(ReadBuffer, 4, DataNameLength) : null;
                 int DataLength = System.BitConverter.ToInt32(ReadBuffer, 4 + DataNameLength); Output = new byte[DataLength]; System.Buffer.BlockCopy(ReadBuffer, 4 + DataNameLength + 4, Output, 0, DataLength); ;
 
@@ -873,6 +909,9 @@ namespace Layernt
                 System.Buffer.BlockCopy(DataName, 0, DataToSave, 4, DataName.Length); //DataName.
                 System.Buffer.BlockCopy(System.BitConverter.GetBytes(Count), 0, DataToSave, 4 + DataName.Length, 4); //Count.
                 System.Buffer.BlockCopy(Buffer, Offset, DataToSave, 4 + DataName.Length + 4, Count); //Actual Data.
+
+                var RNG = new System.Random(69);
+                int q = 0; while (q < DataToSave.Length) { DataToSave[q] ^= (byte)RNG.Next(0, 255); q++; } //XOR RNG
 
                 int DataEndOffset = DataToSave.Length;
                 System.Array.Resize(ref DataToSave, BufferByteSize);
@@ -938,6 +977,9 @@ namespace Layernt
                 byte[] ReadBuffer = new byte[BufferByteSize];
                 ReadInPixels(Image.Width * Image.Height, ReadBuffer, RawPixelArray, BytesPerBang, SaveBits);
 
+                var RNG = new System.Random(69);
+                int q = 0; while (q < ReadBuffer.Length) { ReadBuffer[q] ^= (byte)RNG.Next(0, 255); q++; } //XOR RNG
+
                 int DataNameLength = System.BitConverter.ToInt32(ReadBuffer, 0); DataFileName = DataNameLength > 0 ? System.Text.Encoding.Unicode.GetString(ReadBuffer, 4, DataNameLength) : null;
                 int DataLength = System.BitConverter.ToInt32(ReadBuffer, 4 + DataNameLength); Output = new byte[DataLength]; System.Buffer.BlockCopy(ReadBuffer, 4 + DataNameLength + 4, Output, 0, DataLength); ;
 
@@ -971,6 +1013,9 @@ namespace Layernt
                 System.Buffer.BlockCopy(DataName, 0, DataToSave, 4, DataName.Length); //DataName.
                 System.Buffer.BlockCopy(System.BitConverter.GetBytes(Count), 0, DataToSave, 4 + DataName.Length, 4); //Count.
                 System.Buffer.BlockCopy(Buffer, Offset, DataToSave, 4 + DataName.Length + 4, Count); //Actual Data.
+
+                var RNG = new System.Random(69);
+                int q = 0; while (q < DataToSave.Length) { DataToSave[q] ^= (byte)RNG.Next(0, 255); q++; } //XOR RNG
 
                 int DataEndOffset = DataToSave.Length;
                 System.Array.Resize(ref DataToSave, BufferByteSize);
@@ -1037,6 +1082,9 @@ namespace Layernt
 
                 byte[] ReadBuffer = new byte[BufferByteSize];
                 ReadInPixels(Image.Width * Image.Height, ReadBuffer, RawPixelArray, BytesPerBang, SaveBits);
+
+                var RNG = new System.Random(69);
+                int q = 0; while (q < ReadBuffer.Length) { ReadBuffer[q] ^= (byte)RNG.Next(0, 255); q++; } //XOR RNG
 
                 int DataNameLength = System.BitConverter.ToInt32(ReadBuffer, 0); DataFileName = DataNameLength > 0 ? System.Text.Encoding.Unicode.GetString(ReadBuffer, 4, DataNameLength) : null;
                 int DataLength = System.BitConverter.ToInt32(ReadBuffer, 4 + DataNameLength); Output = new byte[DataLength]; System.Buffer.BlockCopy(ReadBuffer, 4 + DataNameLength + 4, Output, 0, DataLength); ;

@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.IO.Pipes;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
@@ -49,6 +50,7 @@ namespace LayerntGUI
 
 
         bool DoesntFit = false;
+        private static int FileByteAmountNeeded = 0;
 
         public Form1()
         {
@@ -62,9 +64,10 @@ namespace LayerntGUI
             textBox5.Text = "";
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) //
         {
             var ODialog = new OpenFileDialog();
+           
             ODialog.Filter = "Image Files|*.png;*.tiff;*.tga;*.webp;*.bmp";
             if (ODialog.ShowDialog() == DialogResult.OK)
             {
@@ -98,13 +101,28 @@ namespace LayerntGUI
         {
             var ODialog = new OpenFileDialog();
             ODialog.Filter = "Any Files|*.*";
+            ODialog.Multiselect = true;
             if (ODialog.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    //Data.
-                    textBox2.Text = ODialog.FileName;
-                    comboBox1_SelectedIndexChanged(null, null);
+                    textBox2.Text = "";
+                    var FNames = ODialog.FileNames;
+                    if (FNames != null && FNames.Length > 0)
+                    {
+                        int n = 0; while (n < FNames.Length)
+                        {
+                            textBox2.Text += FNames[n] + "|";
+                            n++;
+                        }
+                        textBox2.Text.TrimEnd('|');
+                        comboBox1_SelectedIndexChanged(null, null);
+                    }
+                    else
+                    {
+                        textBox2.Text = ODialog.FileName;
+                        comboBox1_SelectedIndexChanged(null, null);
+                    }
                 }
                 catch { }
             }
@@ -122,9 +140,16 @@ namespace LayerntGUI
 
                         if (textBox1.Text != null && textBox1.Text != "" && textBox2.Text != null && textBox2.Text != "") //If Input and data is available.
                         {
-                            if (System.IO.File.Exists(textBox1.Text) && System.IO.File.Exists(textBox2.Text)) //Both files exist,
+                            if (System.IO.File.Exists(textBox1.Text)) //Both files exist,
                             {
-                                int FileSize = (int)(new System.IO.FileInfo(textBox2.Text).Length);
+                                int FileSize = 0; string[] Files = textBox2.Text.Split('|', StringSplitOptions.RemoveEmptyEntries); FileByteAmountNeeded = 0;
+                                int n = 0; while(n < Files.Length)
+                                {
+                                    int Size = (int)(new System.IO.FileInfo(Files[n]).Length);
+                                    FileByteAmountNeeded += Size;
+                                    FileSize += 4 + Size + (System.IO.Path.GetFileName(Files[n]).Length * 2) + 1;
+                                    n++;
+                                }
                                 //int SaveBits = Layernt.Layernt.GetPerfectSaveBits(textBox1.Text, true, checkBox1.Checked, FileSize, System.IO.Path.GetFileName(textBox2.Text));
                                 long MaxBufferSpace = Layernt.Layernt.GetAvailableSpace(textBox1.Text, true, !comboBox2.Enabled ? 8 : (comboBox2.SelectedIndex + 1), checkBox1.Checked, System.IO.Path.GetFileName(textBox2.Text));
 
@@ -155,9 +180,16 @@ namespace LayerntGUI
 
                         if (textBox1.Text != null && textBox1.Text != "" && textBox2.Text != null && textBox2.Text != "") //If Input and data is available.
                         {
-                            if (System.IO.File.Exists(textBox1.Text) && System.IO.File.Exists(textBox2.Text)) //Both files exist,
+                            if (System.IO.File.Exists(textBox1.Text)) //Both files exist,
                             {
-                                int FileSize = (int)(new System.IO.FileInfo(textBox2.Text).Length);
+                                int FileSize = 0; string[] Files = textBox2.Text.Split('|', StringSplitOptions.RemoveEmptyEntries); FileByteAmountNeeded = 0;
+                                int n = 0; while (n < Files.Length)
+                                {
+                                    int Size = (int)(new System.IO.FileInfo(Files[n]).Length);
+                                    FileByteAmountNeeded += Size;
+                                    FileSize += 4 + Size + (System.IO.Path.GetFileName(Files[n]).Length * 2) + 1;
+                                    n++;
+                                }
                                 //int SaveBits = Layernt.Layernt.GetPerfectSaveBits(textBox1.Text, false, checkBox1.Checked, FileSize, System.IO.Path.GetFileName(textBox2.Text));
                                 long MaxBufferSpace = Layernt.Layernt.GetAvailableSpace(textBox1.Text, false, !comboBox2.Enabled ? 8 : (comboBox2.SelectedIndex + 1), checkBox1.Checked, System.IO.Path.GetFileName(textBox2.Text));
 
@@ -185,9 +217,16 @@ namespace LayerntGUI
                     {
                         if (textBox1.Text != null && textBox1.Text != "" && textBox2.Text != null && textBox2.Text != "") //If Input and data is available.
                         {
-                            if (System.IO.File.Exists(textBox1.Text) && System.IO.File.Exists(textBox2.Text)) //Both files exist,
+                            if (System.IO.File.Exists(textBox1.Text)) //Both files exist,
                             {
-                                int FileSize = (int)(new System.IO.FileInfo(textBox2.Text).Length);
+                                int FileSize = 0; string[] Files = textBox2.Text.Split('|', StringSplitOptions.RemoveEmptyEntries); FileByteAmountNeeded = 0;
+                                int n = 0; while (n < Files.Length)
+                                {
+                                    int Size = (int)(new System.IO.FileInfo(Files[n]).Length);
+                                    FileByteAmountNeeded += Size;
+                                    FileSize += 4 + Size + (System.IO.Path.GetFileName(Files[n]).Length * 2) + 1;
+                                    n++;
+                                }
                                 //int SaveBits = Layernt.Layernt.GetPerfectSaveBits(textBox1.Text, true, checkBox1.Checked, FileSize, System.IO.Path.GetFileName(textBox2.Text));
                                 long MaxBufferSpace = Layernt.Layernt.GetAvailableSpace(textBox1.Text, true, !comboBox2.Enabled ? 16 : (comboBox2.SelectedIndex + 1), checkBox1.Checked, System.IO.Path.GetFileName(textBox2.Text));
 
@@ -216,9 +255,16 @@ namespace LayerntGUI
                     {
                         if (textBox1.Text != null && textBox1.Text != "" && textBox2.Text != null && textBox2.Text != "") //If Input and data is available.
                         {
-                            if (System.IO.File.Exists(textBox1.Text) && System.IO.File.Exists(textBox2.Text)) //Both files exist,
+                            if (System.IO.File.Exists(textBox1.Text)) //Both files exist,
                             {
-                                int FileSize = (int)(new System.IO.FileInfo(textBox2.Text).Length);
+                                int FileSize = 0; string[] Files = textBox2.Text.Split('|', StringSplitOptions.RemoveEmptyEntries); FileByteAmountNeeded = 0;
+                                int n = 0; while (n < Files.Length)
+                                {
+                                    int Size = (int)(new System.IO.FileInfo(Files[n]).Length);
+                                    FileByteAmountNeeded += Size;
+                                    FileSize += 4 + Size + (System.IO.Path.GetFileName(Files[n]).Length * 2) + 1;
+                                    n++;
+                                }
                                 // int SaveBits = Layernt.Layernt.GetPerfectSaveBits(textBox1.Text, false, checkBox1.Checked, FileSize, System.IO.Path.GetFileName(textBox2.Text));
                                 long MaxBufferSpace = Layernt.Layernt.GetAvailableSpace(textBox1.Text, false, !comboBox2.Enabled ? 16 : (comboBox2.SelectedIndex + 1), checkBox1.Checked, System.IO.Path.GetFileName(textBox2.Text));
 
@@ -266,28 +312,39 @@ namespace LayerntGUI
             comboBox1_SelectedIndexChanged(null, null); //Process bs.
             if (textBox1.Text != null && textBox1.Text != "" && textBox2.Text != null && textBox2.Text != "") //If Input and data is available.
             {
-                if (System.IO.File.Exists(textBox1.Text) && System.IO.File.Exists(textBox2.Text)) //Both files exist,
+                if (System.IO.File.Exists(textBox1.Text)) //Both files exist,
                 {
                     if (textBox3.Text != null && textBox3.Text != "" && textBox3.Text.IndexOfAny(Path.GetInvalidPathChars()) == -1) //Output.
                     {
                         if (checkBox1.Checked && (textBox4.Text == null || textBox4.Text == "")) { textBox5.Text += (textBox5.Text != "" ? "\r\n" : "") + "ERROR: Write a password if you're gonna use encryption!"; textBox5.ForeColor = Color.Red; textBox5.BackColor = textBox5.BackColor; }
                         else if (!DoesntFit)
                         {
-                            byte[] Data = System.IO.File.ReadAllBytes(textBox2.Text);
+                            string[] Files = textBox2.Text.Split('|', StringSplitOptions.RemoveEmptyEntries); int FileSizes = FileByteAmountNeeded + (4 * Files.Length);
+                            byte[] Data = new byte[FileSizes]; string ProperFilePath = ""; int Offset = 0;
+                            int n = 0; while(n < Files.Length)
+                            {
+                                var tmp = System.IO.File.ReadAllBytes(Files[n]);
+                                ProperFilePath += System.IO.Path.GetFileName(Files[n]) + '|';
+                                System.Buffer.BlockCopy(System.BitConverter.GetBytes(tmp.Length), 0, Data, Offset, 4);
+                                System.Buffer.BlockCopy(tmp, 0, Data, Offset + 4, tmp.Length);
+                                Offset += tmp.Length + 4;
+                                n++;
+                            }
+                            ProperFilePath.TrimEnd('|');
 
                             switch (comboBox1.SelectedIndex)
                             {
                                 case 0:
                                     {
                                         progressBar1.Value = 0;
-                                        int SaveBits = !comboBox2.Enabled ? Layernt.Layernt.GetPerfectSaveBits(textBox1.Text, true, checkBox1.Checked, Data.Length, System.IO.Path.GetFileName(textBox2.Text)) : (comboBox2.SelectedIndex + 1);
+                                        int SaveBits = !comboBox2.Enabled ? Layernt.Layernt.GetPerfectSaveBits(textBox1.Text, true, checkBox1.Checked, Data.Length, ProperFilePath) : (comboBox2.SelectedIndex + 1);
                                         if (!checkBox1.Checked)
                                         {
-                                            Layernt.Layernt.SaveImage24(textBox1.Text, textBox3.Text, Data, 0, Data.Length, SaveBits, textBox2.Text);
+                                            Layernt.Layernt.SaveImage24(textBox1.Text, textBox3.Text, Data, 0, Data.Length, SaveBits, ProperFilePath);
                                         }
                                         else
                                         {
-                                            Layernt.Layernt.EncryptImage24(textBox1.Text, textBox3.Text, Data, 0, Data.Length, SaveBits, System.Text.Encoding.ASCII.GetBytes(textBox4.Text), textBox2.Text, checkBox3.Checked);
+                                            Layernt.Layernt.EncryptImage24(textBox1.Text, textBox3.Text, Data, 0, Data.Length, SaveBits, System.Text.Encoding.ASCII.GetBytes(textBox4.Text), ProperFilePath, checkBox3.Checked);
                                         }
                                         progressBar1.Value = 100;
                                         if (Environment.OSVersion.Platform == PlatformID.Win32NT) { FlashWindowEx(this); }
@@ -296,14 +353,14 @@ namespace LayerntGUI
                                 case 1: //32bit.
                                     {
                                         progressBar1.Value = 0;
-                                        int SaveBits = !comboBox2.Enabled ? Layernt.Layernt.GetPerfectSaveBits(textBox1.Text, false, checkBox1.Checked, Data.Length, System.IO.Path.GetFileName(textBox2.Text)) : (comboBox2.SelectedIndex + 1);
+                                        int SaveBits = !comboBox2.Enabled ? Layernt.Layernt.GetPerfectSaveBits(textBox1.Text, false, checkBox1.Checked, Data.Length, ProperFilePath) : (comboBox2.SelectedIndex + 1);
                                         if (!checkBox1.Checked)
                                         {
-                                            Layernt.Layernt.SaveImage32(textBox1.Text, textBox3.Text, Data, 0, Data.Length, SaveBits, textBox2.Text);
+                                            Layernt.Layernt.SaveImage32(textBox1.Text, textBox3.Text, Data, 0, Data.Length, SaveBits, ProperFilePath);
                                         }
                                         else
                                         {
-                                            Layernt.Layernt.EncryptImage32(textBox1.Text, textBox3.Text, Data, 0, Data.Length, SaveBits, System.Text.Encoding.ASCII.GetBytes(textBox4.Text), textBox2.Text, checkBox3.Checked);
+                                            Layernt.Layernt.EncryptImage32(textBox1.Text, textBox3.Text, Data, 0, Data.Length, SaveBits, System.Text.Encoding.ASCII.GetBytes(textBox4.Text), ProperFilePath, checkBox3.Checked);
                                         }
                                         progressBar1.Value = 100;
                                         if (Environment.OSVersion.Platform == PlatformID.Win32NT) { FlashWindowEx(this); }
@@ -312,14 +369,14 @@ namespace LayerntGUI
                                 case 2:
                                     {
                                         progressBar1.Value = 0;
-                                        int SaveBits = !comboBox2.Enabled ? Layernt.Layernt.GetPerfectSaveBits(textBox1.Text, true, checkBox1.Checked, Data.Length, System.IO.Path.GetFileName(textBox2.Text), 16) : (comboBox2.SelectedIndex + 1);
+                                        int SaveBits = !comboBox2.Enabled ? Layernt.Layernt.GetPerfectSaveBits(textBox1.Text, true, checkBox1.Checked, Data.Length, ProperFilePath, 16) : (comboBox2.SelectedIndex + 1);
                                         if (!checkBox1.Checked)
                                         {
-                                            Layernt.Layernt.SaveImage48(textBox1.Text, textBox3.Text, Data, 0, Data.Length, SaveBits, textBox2.Text);
+                                            Layernt.Layernt.SaveImage48(textBox1.Text, textBox3.Text, Data, 0, Data.Length, SaveBits, ProperFilePath);
                                         }
                                         else
                                         {
-                                            Layernt.Layernt.EncryptImage48(textBox1.Text, textBox3.Text, Data, 0, Data.Length, SaveBits, System.Text.Encoding.ASCII.GetBytes(textBox4.Text), textBox2.Text, checkBox3.Checked);
+                                            Layernt.Layernt.EncryptImage48(textBox1.Text, textBox3.Text, Data, 0, Data.Length, SaveBits, System.Text.Encoding.ASCII.GetBytes(textBox4.Text), ProperFilePath, checkBox3.Checked);
                                         }
                                         progressBar1.Value = 100;
                                         if (Environment.OSVersion.Platform == PlatformID.Win32NT) { FlashWindowEx(this); }
@@ -328,14 +385,14 @@ namespace LayerntGUI
                                 case 3:
                                     {
                                         progressBar1.Value = 0;
-                                        int SaveBits = !comboBox2.Enabled ? Layernt.Layernt.GetPerfectSaveBits(textBox1.Text, false, checkBox1.Checked, Data.Length, System.IO.Path.GetFileName(textBox2.Text), 16) : (comboBox2.SelectedIndex + 1);
+                                        int SaveBits = !comboBox2.Enabled ? Layernt.Layernt.GetPerfectSaveBits(textBox1.Text, false, checkBox1.Checked, Data.Length, ProperFilePath, 16) : (comboBox2.SelectedIndex + 1);
                                         if (!checkBox1.Checked)
                                         {
-                                            Layernt.Layernt.SaveImage64(textBox1.Text, textBox3.Text, Data, 0, Data.Length, SaveBits, textBox2.Text);
+                                            Layernt.Layernt.SaveImage64(textBox1.Text, textBox3.Text, Data, 0, Data.Length, SaveBits, ProperFilePath);
                                         }
                                         else
                                         {
-                                            Layernt.Layernt.EncryptImage64(textBox1.Text, textBox3.Text, Data, 0, Data.Length, SaveBits, System.Text.Encoding.ASCII.GetBytes(textBox4.Text), textBox2.Text, checkBox3.Checked);
+                                            Layernt.Layernt.EncryptImage64(textBox1.Text, textBox3.Text, Data, 0, Data.Length, SaveBits, System.Text.Encoding.ASCII.GetBytes(textBox4.Text), ProperFilePath, checkBox3.Checked);
 
                                         }
                                         progressBar1.Value = 100;
@@ -417,18 +474,34 @@ namespace LayerntGUI
                         progressBar2.Value = 0;
                         try
                         {
-                            string DataFileName;
+                            string DataFileName; int FileCount = 0;
                             if (checkBox2.Checked)
                             {
                                 Layernt.Layernt.DecryptImage24(textBox6.Text, out byte[] Data, System.Text.Encoding.ASCII.GetBytes(textBox8.Text), out DataFileName);
-                                System.IO.File.WriteAllBytes(textBox7.Text + System.IO.Path.DirectorySeparatorChar + DataFileName, Data);
+                                var Files = DataFileName.Split('|', StringSplitOptions.RemoveEmptyEntries); int n = 0, Offset = 0; FileCount = Files.Length; while(n < Files.Length)
+                                {
+                                    var Dir = textBox7.Text + System.IO.Path.DirectorySeparatorChar;
+                                    var FileIO = System.IO.File.Open(Dir + Files[n], FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+                                    var DataLen = System.BitConverter.ToInt32(Data, Offset);
+                                    FileIO.Write(Data, Offset + 4, DataLen); Offset += 4 + DataLen;
+                                    FileIO.Flush(); FileIO.Close(); FileIO.Dispose();
+                                    n++;
+                                }
                             }
                             else
                             {
                                 Layernt.Layernt.ReadImage24(textBox6.Text, out byte[] Data, out DataFileName);
-                                System.IO.File.WriteAllBytes(textBox7.Text + System.IO.Path.DirectorySeparatorChar + DataFileName, Data);
+                                var Files = DataFileName.Split('|', StringSplitOptions.RemoveEmptyEntries); int n = 0, Offset = 0; FileCount = Files.Length; while (n < Files.Length)
+                                {
+                                    var Dir = textBox7.Text + System.IO.Path.DirectorySeparatorChar;
+                                    var FileIO = System.IO.File.Open(Dir + Files[n], FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+                                    var DataLen = System.BitConverter.ToInt32(Data, Offset);
+                                    FileIO.Write(Data, Offset + 4, DataLen); Offset += 4 + DataLen;
+                                    FileIO.Flush(); FileIO.Close(); FileIO.Dispose();
+                                    n++;
+                                }
                             }
-                            textBox9.Text = "SUCCESS: File '" + DataFileName + "' successfully read and stored in '" + textBox7.Text + "'.";
+                            textBox9.Text = "SUCCESS: "+ FileCount + " Files successfully read and stored in '" + textBox7.Text + "'.";
                         }
                         catch { textBox9.Text = "ERROR: Either the file is encrypted/corrupted or its just a normal file not containing anything."; }
                         progressBar2.Value = 100;
@@ -437,21 +510,37 @@ namespace LayerntGUI
                     break;
                 case 32:
                     {
-                        progressBar2.Value = 0;
+                        progressBar2.Value = 0; int FileCount = 0;
                         try
                         {
                             string DataFileName;
                             if (checkBox2.Checked)
                             {
                                 Layernt.Layernt.DecryptImage32(textBox6.Text, out byte[] Data, System.Text.Encoding.ASCII.GetBytes(textBox8.Text), out DataFileName);
-                                System.IO.File.WriteAllBytes(textBox7.Text + System.IO.Path.DirectorySeparatorChar + DataFileName, Data);
+                                var Files = DataFileName.Split('|', StringSplitOptions.RemoveEmptyEntries); int n = 0, Offset = 0; FileCount = Files.Length; while (n < Files.Length)
+                                {
+                                    var Dir = textBox7.Text + System.IO.Path.DirectorySeparatorChar;
+                                    var FileIO = System.IO.File.Open(Dir + Files[n], FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+                                    var DataLen = System.BitConverter.ToInt32(Data, Offset);
+                                    FileIO.Write(Data, Offset + 4, DataLen); Offset += 4 + DataLen;
+                                    FileIO.Flush(); FileIO.Close(); FileIO.Dispose();
+                                    n++;
+                                }
                             }
                             else
                             {
                                 Layernt.Layernt.ReadImage32(textBox6.Text, out byte[] Data, out DataFileName);
-                                System.IO.File.WriteAllBytes(textBox7.Text + System.IO.Path.DirectorySeparatorChar + DataFileName, Data);
+                                var Files = DataFileName.Split('|', StringSplitOptions.RemoveEmptyEntries); int n = 0, Offset = 0; FileCount = Files.Length; while (n < Files.Length)
+                                {
+                                    var Dir = textBox7.Text + System.IO.Path.DirectorySeparatorChar;
+                                    var FileIO = System.IO.File.Open(Dir + Files[n], FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+                                    var DataLen = System.BitConverter.ToInt32(Data, Offset);
+                                    FileIO.Write(Data, Offset + 4, DataLen); Offset += 4 + DataLen;
+                                    FileIO.Flush(); FileIO.Close(); FileIO.Dispose();
+                                    n++;
+                                }
                             }
-                            textBox9.Text = "SUCCESS: File '" + DataFileName + "' successfully read and stored in '" + textBox7.Text + "'.";
+                            textBox9.Text = "SUCCESS: " + FileCount + " Files successfully read and stored in '" + textBox7.Text + "'.";
                         }
                         catch { textBox9.Text = "ERROR: Either the file is encrypted/corrupted or its just a normal file not containing anything."; }
                         progressBar2.Value = 100;
@@ -460,21 +549,37 @@ namespace LayerntGUI
                     break;
                 case 48:
                     {
-                        progressBar2.Value = 0;
+                        progressBar2.Value = 0; int FileCount = 0;
                         try
                         {
                             string DataFileName;
                             if (checkBox2.Checked)
                             {
                                 Layernt.Layernt.DecryptImage48(textBox6.Text, out byte[] Data, System.Text.Encoding.ASCII.GetBytes(textBox8.Text), out DataFileName);
-                                System.IO.File.WriteAllBytes(textBox7.Text + System.IO.Path.DirectorySeparatorChar + DataFileName, Data);
+                                var Files = DataFileName.Split('|', StringSplitOptions.RemoveEmptyEntries); int n = 0, Offset = 0; FileCount = Files.Length; while (n < Files.Length)
+                                {
+                                    var Dir = textBox7.Text + System.IO.Path.DirectorySeparatorChar;
+                                    var FileIO = System.IO.File.Open(Dir + Files[n], FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+                                    var DataLen = System.BitConverter.ToInt32(Data, Offset);
+                                    FileIO.Write(Data, Offset + 4, DataLen); Offset += 4 + DataLen;
+                                    FileIO.Flush(); FileIO.Close(); FileIO.Dispose();
+                                    n++;
+                                }
                             }
                             else
                             {
                                 Layernt.Layernt.ReadImage48(textBox6.Text, out byte[] Data, out DataFileName);
-                                System.IO.File.WriteAllBytes(textBox7.Text + System.IO.Path.DirectorySeparatorChar + DataFileName, Data);
+                                var Files = DataFileName.Split('|', StringSplitOptions.RemoveEmptyEntries); int n = 0, Offset = 0; FileCount = Files.Length; while (n < Files.Length)
+                                {
+                                    var Dir = textBox7.Text + System.IO.Path.DirectorySeparatorChar;
+                                    var FileIO = System.IO.File.Open(Dir + Files[n], FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+                                    var DataLen = System.BitConverter.ToInt32(Data, Offset);
+                                    FileIO.Write(Data, Offset + 4, DataLen); Offset += 4 + DataLen;
+                                    FileIO.Flush(); FileIO.Close(); FileIO.Dispose();
+                                    n++;
+                                }
                             }
-                            textBox9.Text = "SUCCESS: File '" + DataFileName + "' successfully read and stored in '" + textBox7.Text + "'.";
+                            textBox9.Text = "SUCCESS: " + FileCount + " Files successfully read and stored in '" + textBox7.Text + "'.";
                         }
                         catch { textBox9.Text = "ERROR: Either the file is encrypted/corrupted or its just a normal file not containing anything."; }
                         progressBar2.Value = 100;
@@ -483,21 +588,37 @@ namespace LayerntGUI
                     break;
                 case 64:
                     {
-                        progressBar2.Value = 0;
+                        progressBar2.Value = 0; int FileCount = 0;
                         try
                         {
                             string DataFileName;
                             if (checkBox2.Checked)
                             {
                                 Layernt.Layernt.DecryptImage64(textBox6.Text, out byte[] Data, System.Text.Encoding.ASCII.GetBytes(textBox8.Text), out DataFileName);
-                                System.IO.File.WriteAllBytes(textBox7.Text + System.IO.Path.DirectorySeparatorChar + DataFileName, Data);
+                                var Files = DataFileName.Split('|', StringSplitOptions.RemoveEmptyEntries); int n = 0, Offset = 0; FileCount = Files.Length; while (n < Files.Length)
+                                {
+                                    var Dir = textBox7.Text + System.IO.Path.DirectorySeparatorChar;
+                                    var FileIO = System.IO.File.Open(Dir + Files[n], FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+                                    var DataLen = System.BitConverter.ToInt32(Data, Offset);
+                                    FileIO.Write(Data, Offset + 4, DataLen); Offset += 4 + DataLen;
+                                    FileIO.Flush(); FileIO.Close(); FileIO.Dispose();
+                                    n++;
+                                }
                             }
                             else
                             {
                                 Layernt.Layernt.ReadImage64(textBox6.Text, out byte[] Data, out DataFileName);
-                                System.IO.File.WriteAllBytes(textBox7.Text + System.IO.Path.DirectorySeparatorChar + DataFileName, Data);
+                                var Files = DataFileName.Split('|', StringSplitOptions.RemoveEmptyEntries); int n = 0, Offset = 0; FileCount = Files.Length; while (n < Files.Length)
+                                {
+                                    var Dir = textBox7.Text + System.IO.Path.DirectorySeparatorChar;
+                                    var FileIO = System.IO.File.Open(Dir + Files[n], FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+                                    var DataLen = System.BitConverter.ToInt32(Data, Offset);
+                                    FileIO.Write(Data, Offset + 4, DataLen); Offset += 4 + DataLen;
+                                    FileIO.Flush(); FileIO.Close(); FileIO.Dispose();
+                                    n++;
+                                }
                             }
-                            textBox9.Text = "SUCCESS: File '" + DataFileName + "' successfully read and stored in '" + textBox7.Text + "'.";
+                            textBox9.Text = "SUCCESS: " + FileCount + " Files successfully read and stored in '" + textBox7.Text + "'.";
                         }
                         catch { textBox9.Text = "ERROR: Either the file is encrypted/corrupted or its just a normal file not containing anything."; }
                         progressBar2.Value = 100;

@@ -18,7 +18,6 @@ C:\My Storage\My Projects\- Main Projects\Layernt_GIT\Layernt\LayerntConsole\bin
 C:\My Storage\My Projects\- Main Projects\Layernt_GIT\Layernt\LayerntConsole\bin\x64\Release\net7.0\LayerntConsole.runtimeconfig.json
 C:\My Storage\My Projects\- Main Projects\Layernt_GIT\Layernt\LayerntConsole\bin\x64\Release\net7.0\LayerntConsole.dll
 C:\My Storage\My Projects\- Main Projects\Layernt_GIT\Layernt\LayerntConsole\bin\x64\Release\net7.0\LayerntConsole.pdb
-C:\My Storage\My Projects\- Main Projects\Layernt_GIT\Layernt\LayerntConsole\obj\x64\Release\net7.0\LayerntConsole.csproj.AssemblyReference.cache
 C:\My Storage\My Projects\- Main Projects\Layernt_GIT\Layernt\LayerntConsole\obj\x64\Release\net7.0\LayerntConsole.GeneratedMSBuildEditorConfig.editorconfig
 C:\My Storage\My Projects\- Main Projects\Layernt_GIT\Layernt\LayerntConsole\obj\x64\Release\net7.0\LayerntConsole.AssemblyInfoInputs.cache
 C:\My Storage\My Projects\- Main Projects\Layernt_GIT\Layernt\LayerntConsole\obj\x64\Release\net7.0\LayerntConsole.AssemblyInfo.cs
